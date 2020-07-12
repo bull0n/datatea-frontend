@@ -37,8 +37,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import ListTeasNav from './ListTeasNav.vue';
 
-@Component
+@Component({
+  components: { ListTeasNav },
+})
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
 }

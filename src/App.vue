@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <list-teas-nav></list-teas-nav>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -7,6 +8,17 @@
     <router-view/>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import ListTeasNav from './components/ListTeasNav.vue';
+
+@Component({
+  components: { ListTeasNav },
+})
+export default class App extends Vue {
+}
+</script>
 
 <style lang="scss">
 #app {
