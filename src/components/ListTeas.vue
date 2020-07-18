@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div>
-      <p v-for="(tea, index) in teas" :key="index">ListTeas Works {{ tea.name }} !</p>
+    <div v-for="tea in teas" :key="tea.id">
+      <router-link :to="{ name: 'tea', params: { id: tea.id } }">
+        {{ tea.id }} - {{ tea.name }}
+      </router-link>
     </div>
   </div>
 </template>
@@ -17,7 +19,7 @@ import { mapState } from 'vuex';
 })
 export default class ListTeas extends Vue {
 }
-</script>
+</script>a
 
 <style scoped lang="scss">
 
