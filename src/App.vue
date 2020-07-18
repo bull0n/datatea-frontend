@@ -8,6 +8,17 @@
   </div>
 </template>
 
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+
+@Component
+export default class ListTeasNav extends Vue {
+  created() {
+    this.$store.dispatch('teas/fetchTeas');
+  }
+}
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

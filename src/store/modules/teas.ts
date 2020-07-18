@@ -1,12 +1,17 @@
 import Tea from '@/data-model/tea';
 import Vue from 'vue';
 import config from '@/config';
+import { FETCH_ALL_TEA } from './graphql_queries';
+
+export interface Module1State {
+  teas: Tea[];
+}
 
 const teas = {
   namespaced: true,
   state: {
-    teas: Array<Tea>(),
-  },
+    teas: [],
+  } as Module1State,
   mutations: {
     setTeas(state, newTeas: Tea[]) {
       Vue.set(state, 'teas', [...newTeas]);
@@ -21,11 +26,7 @@ const teas = {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query: `query teas {
-            teas {
-              name
-            },
-          }`,
+          query: FETCH_ALL_TEA,
         }),
       }).then(
         (r) => r.json(),

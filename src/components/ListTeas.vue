@@ -1,6 +1,8 @@
 <template>
   <div>
-      <p v-for="(tea, index) in teas" :key="index">ListTeasNav Works {{ tea.name }} !</p>
+    <div>
+      <p v-for="(tea, index) in teas" :key="index">ListTeas Works {{ tea.name }} !</p>
+    </div>
   </div>
 </template>
 
@@ -13,10 +15,7 @@ import { mapState } from 'vuex';
     ...mapState('teas', ['teas']),
   },
 })
-export default class ListTeasNav extends Vue {
-  created() {
-    this.$store.dispatch('teas/fetchTeas');
-  }
+export default class ListTeas extends Vue {
 }
 </script>
 

@@ -1,6 +1,7 @@
 import TeaForms from './tea-forms';
 
 export default class Tea {
+  id: number | undefined;
   name: string = '';
   form: TeaForms = TeaForms.LOOSE;
   wouldBuyAgain: boolean = false;
