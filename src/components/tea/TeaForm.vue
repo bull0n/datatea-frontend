@@ -10,7 +10,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class TeaDetail extends Vue {
+export default class TeaForm extends Vue {
 }
 </script>
 

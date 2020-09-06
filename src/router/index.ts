@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import ListTeas from '@/components/ListTeas.vue';
-import TeaDetail from '@/components/TeaDetail.vue';
+import TeaDetail from '@/components/tea/TeaDetail.vue';
+import TeaAdd from '@/components/tea/TeaAdd.vue';
 
 Vue.use(VueRouter);
 
@@ -11,9 +12,14 @@ const routes: Array<RouteConfig> = [
     name: 'home',
     component: ListTeas,
   }, {
-    path: '/:id',
+    path: '/tea/:teaId',
     name: 'tea',
     component: TeaDetail,
+    props: true,
+  }, {
+    path: '/tea/add',
+    name: 'teaAdd',
+    component: TeaAdd,
   },
 ];
 

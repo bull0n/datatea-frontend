@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="!isLoading">
     <div id="nav">
       <router-link to="/">Home</router-link>
     </div>
@@ -9,10 +9,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { mapState } from 'vuex';
 
-@Component
-export default class ListTeasNav extends Vue {
-  created() {
+@Component({
+  computed: {
+    ...mapState('teas', ['isLoading']),
+  },
+})
+export default class App extends Vue {
+  async created() {
     this.$store.dispatch('teas/fetchTeas');
   }
 }

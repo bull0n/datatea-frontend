@@ -11,28 +11,38 @@ const teas = {
   namespaced: true,
   state: {
     teas: [],
+    isLoading: false,
   } as Module1State,
   mutations: {
     setTeas(state, newTeas: Tea[]) {
       Vue.set(state, 'teas', [...newTeas]);
     },
+    setIsLoding(state, isLoading: boolean) {
+      state.isLoading = isLoading;
+    },
+  },
+  getters: {
+    getTeaById: (state) => (id) => state.teas.find((tea: Tea) => tea.id === id),
   },
   actions: {
-    fetchTeas(context) {
-      fetch(config.URL_ENDPOINT, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: FETCH_ALL_TEA,
-        }),
-      }).then(
-        (r) => r.json(),
-      ).then((data) => {
-        context.commit('setTeas', data.data.teas);
-      });
+    async fetchTeas(context) {
+      try {
+        context.commit('setIsLoding', true);
+        const response = await fetch(config.URL_ENDPOINT, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: FETCH_ALL_TEA,
+          }),
+        });
+        const objectResponse = await response.json();
+        context.commit('setTeas', objectResponse.data.teas);
+      } finally {
+        context.commit('setIsLoding', false);
+      }
     },
   },
 };
