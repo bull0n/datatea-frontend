@@ -1,7 +1,9 @@
 <template>
   <div id="app" v-if="!isLoading">
     <div id="nav">
-      <router-link to="/">Home</router-link>
+      <router-link :to="{ name: 'home' }">Home</router-link>
+      <br>
+      <router-link :to="{ name: 'teaAdd' }">Add new tea</router-link>
     </div>
     <router-view/>
   </div>
