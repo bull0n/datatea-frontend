@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import ListTeas from '@/components/ListTeas.vue';
+import NavListTeas from '@/components/navigation/NavListTeas.vue';
 import TeaDetail from '@/components/tea/TeaDetail.vue';
 import TeaAdd from '@/components/tea/TeaAdd.vue';
 
@@ -10,7 +10,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'home',
-    component: ListTeas,
+    component: NavListTeas,
   }, {
     path: '/tea/:teaId',
     name: 'tea',
