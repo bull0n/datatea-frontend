@@ -3,7 +3,7 @@
     <router-link
     class="nav-link"
     :class="{ active: isActive }"
-    :to="{ name: 'tea', params: { teaId: tea.id } }">
+    :to="{ name: 'tea', params: { teaId: tea.id }}">
       {{ tea.id }} - {{ tea.name }}
     </router-link>
   </li>
