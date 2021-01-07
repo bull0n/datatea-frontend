@@ -15,9 +15,9 @@ const teas = {
   } as Module1State,
   mutations: {
     setTeas(state, newTeas: Tea[]) {
-      Vue.set(state, 'teas', [...newTeas]);
+      state.teas.push(...newTeas);
     },
-    setIsLoding(state, isLoading: boolean) {
+    setIsLoading(state, isLoading: boolean) {
       state.isLoading = isLoading;
     },
   },
@@ -27,7 +27,7 @@ const teas = {
   actions: {
     async fetchTeas(context) {
       try {
-        context.commit('setIsLoding', true);
+        context.commit('setIsLoading', true);
         const response = await fetch(config.URL_ENDPOINT, {
           method: 'POST',
           mode: 'cors',
@@ -41,7 +41,48 @@ const teas = {
         const objectResponse = await response.json();
         context.commit('setTeas', objectResponse.data.teas);
       } finally {
-        context.commit('setIsLoding', false);
+        context.commit('setIsLoading', false);
+      }
+    },
+    async addTea(context, tea: Tea) {
+      try {
+        const response = await fetch(config.URL_ENDPOINT, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: `mutation createTea {
+                createTea(
+                  name: "${tea.name}",
+                  wouldBuyAgain: ${tea.wouldBuyAgain}
+                  price: ${tea.price},
+                  origin: "${tea.origin}",
+                  vendor: "${tea.vendor}",
+                  urlBought: "${tea.urlBought}",
+                  vendorDescription: "${tea.vendorDescription}",
+                  comment: "${tea.comment}",
+                ) {
+                  tea {
+                    id
+                    name,
+                    wouldBuyAgain,
+                    price,
+                    origin,
+                    vendor,
+                    urlBought,
+                    vendorDescription,
+                    comment
+                  }
+                }
+            }`,
+          }),
+        });
+        const objectResponse = await response.json();
+        context.commit('setTeas', [objectResponse.data.createTea.tea]);
+      } finally {
+        context.commit('setIsLoading', false);
       }
     },
   },

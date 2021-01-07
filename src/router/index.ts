@@ -12,14 +12,14 @@ const routes: Array<RouteConfig> = [
     name: 'home',
     component: NavListTeas,
   }, {
+    path: '/tea/add',
+    name: 'teaAdd',
+    component: TeaAdd,
+  }, {
     path: '/tea/:teaId',
     name: 'tea',
     component: TeaDetail,
     props: true,
-  }, {
-    path: '/tea/add',
-    name: 'teaAdd',
-    component: TeaAdd,
   },
 ];
 

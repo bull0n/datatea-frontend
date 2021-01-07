@@ -45,4 +45,7 @@ export default class App extends Vue {
     margin-bottom: 1rem;
   }
 }
+label.required:after {
+  content: "*";
+}
 </style>

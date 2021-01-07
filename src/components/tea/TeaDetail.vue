@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div class="card-body">
+    <div class="card-body" v-if="tea !== undefined">
       <h1 class="display-4">
         {{ tea.name }}
         <small class="fs-5 text-muted">{{ tea.price }} $/g</small>
