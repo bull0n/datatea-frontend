@@ -91,6 +91,20 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class TeaAdd extends Vue {
   tea = new Tea();
 
+  created() {
+    this.$store.subscribe((mutation) => {
+      console.log(mutation.payload);
+      if (mutation.type === 'teas/addTea') {
+        this.$router.push({
+          name: 'tea',
+          params: {
+            teaId: mutation.payload.id,
+          },
+        });
+      }
+    });
+  }
+
   confirm() {
     this.$store.dispatch('teas/addTea', this.tea);
   }

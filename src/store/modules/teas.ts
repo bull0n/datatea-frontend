@@ -15,7 +15,10 @@ const teas = {
   } as Module1State,
   mutations: {
     setTeas(state, newTeas: Tea[]) {
-      state.teas.push(...newTeas);
+      Vue.set(state, 'teas', newTeas);
+    },
+    addTea(state, tea: Tea) {
+      state.teas.push(tea);
     },
     setIsLoading(state, isLoading: boolean) {
       state.isLoading = isLoading;
@@ -80,7 +83,7 @@ const teas = {
           }),
         });
         const objectResponse = await response.json();
-        context.commit('setTeas', [objectResponse.data.createTea.tea]);
+        context.commit('addTea', objectResponse.data.createTea.tea);
       } finally {
         context.commit('setIsLoading', false);
       }
