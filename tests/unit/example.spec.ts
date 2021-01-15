@@ -1,13 +1,27 @@
-import { expect } from 'chai';
-import { shallowMount } from '@vue/test-utils';
-import HelloWorld from '@/components/HelloWorld.vue';
+import { mount } from '@vue/test-utils';
+import NavTeaElement from '@/components/navigation/NavTeaElement.vue';
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg },
-    });
-    expect(wrapper.text()).to.include(msg);
+const teaId = '23';
+const teaName = 'Oolong';
+const $route = {
+  name: 'tea',
+  params: { teaId },
+};
+
+it('renders props.msg when passed', () => {
+
+  const wrapper = mount(NavTeaElement, {
+    mocks: {
+      $route,
+    },
+    stubs: ['router-link'],
+    propsData: {
+      tea: {
+        id: teaId,
+        name: teaName,
+      },
+    },
   });
+
+  expect(wrapper.text()).toContain(teaName);
 });

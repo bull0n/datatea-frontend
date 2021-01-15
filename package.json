@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.0.0-beta1",
-    "core-js": "^3.8.1",
+    "core-js": "^3.8.2",
     "vue": "^2.6.12",
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^8.4.2",
@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.2.14",
-    "@types/mocha": "^5.2.4",
+    "@types/jest": "^24.0.19",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.4.0",
@@ -28,7 +28,7 @@
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",
     "@vue/cli-plugin-typescript": "~4.4.0",
-    "@vue/cli-plugin-unit-mocha": "~4.4.0",
+    "@vue/cli-plugin-unit-jest": "^4.5.10",
     "@vue/cli-plugin-vuex": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
     "@vue/eslint-config-airbnb": "^5.3.0",
@@ -40,8 +40,9 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-vue": "^6.2.2",
     "geckodriver": "^1.21.1",
-    "sass": "^1.30.0",
+    "sass": "^1.32.4",
     "sass-loader": "^8.0.2",
+    "ts-jest": "^26.4.4",
     "typescript": "^3.9.7",
     "vue-template-compiler": "^2.6.12"
   }
