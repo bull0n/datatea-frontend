@@ -34,14 +34,20 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 import Tea from '../../data-model/tea';
+
+const teas = namespace('teas');
 
 @Component
 export default class TeaDetail extends Vue {
   @Prop({ required: true }) readonly teaId: number;
 
+  @teas.Getter
+  getTeaById;
+
   get tea(): Tea {
-    return this.$store.getters['teas/getTeaById'](this.teaId);
+    return this.getTeaById(this.teaId);
   }
 }
 </script>

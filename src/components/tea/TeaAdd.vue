@@ -92,13 +92,13 @@ import Tea from '@/data-model/tea';
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 
-const tea = namespace('teas');
+const teas = namespace('teas');
 
 @Component
 export default class TeaAdd extends Vue {
   tea = new Tea();
 
-  @tea.Action('addTea')
+  @teas.Action('addTea')
   addTea;
 
   async confirm(): Promise<void> {

@@ -21,7 +21,6 @@ export default class NavTeaElement extends Vue {
   @Prop({ required: true }) readonly tea: Tea
 
   get isActive(): boolean {
-    console.log(this.$route.params.teaId, this.tea.id);
     return this.$route.params.teaId === this.tea.id;
   }
 }
