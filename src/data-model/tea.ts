@@ -1,7 +1,7 @@
 import TeaForms from './tea-forms';
 
 export default class Tea {
-  id: string | undefined;
+  id: string;
 
   name = '';
 

@@ -83,7 +83,9 @@ const teas = {
           }),
         });
         const objectResponse = await response.json();
-        context.commit('addTea', objectResponse.data.createTea.tea);
+        const teaSaved = objectResponse.data.createTea.tea;
+        context.commit('addTea', teaSaved);
+        return Promise.resolve(tea);
       } finally {
         context.commit('setIsLoading', false);
       }

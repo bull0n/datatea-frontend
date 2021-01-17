@@ -1,11 +1,15 @@
 <template>
   <div>
     <form @submit.prevent="confirm()">
-      <div>{{ tea }}</div>
       <div>
         <label class="form-label required">
           Tea name:
-          <input type="text" class="form-control" placeholder="Name" v-model="tea.name" required>
+          <input
+            type="text"
+            class="form-control tea-name"
+            placeholder="Name"
+            v-model="tea.name"
+            required>
         </label>
       </div>
 
@@ -86,27 +90,28 @@
 <script lang="ts">
 import Tea from '@/data-model/tea';
 import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+
+const tea = namespace('teas');
 
 @Component
 export default class TeaAdd extends Vue {
   tea = new Tea();
 
-  created() {
-    this.$store.subscribe((mutation) => {
-      console.log(mutation.payload);
-      if (mutation.type === 'teas/addTea') {
-        this.$router.push({
-          name: 'tea',
-          params: {
-            teaId: mutation.payload.id,
-          },
-        });
-      }
-    });
-  }
+  @tea.Action('addTea')
+  addTea;
 
-  confirm() {
-    this.$store.dispatch('teas/addTea', this.tea);
+  async confirm(): Promise<void> {
+    this.tea = await this.addTea(this.tea);
+
+    this.$router.push({
+      name: 'tea',
+      params: {
+        teaId: this.tea.id,
+      },
+    });
+    
+    return Promise.resolve();
   }
 }
 </script>
