@@ -20,11 +20,9 @@ import { Route } from 'vue-router';
 export default class NavTeaElement extends Vue {
   @Prop({ required: true }) readonly tea: Tea
 
-  public isActive = false;
-
-  @Watch('$route', { immediate: true, deep: true })
-  onTeaRouteChanged(newRoute: Route): void {
-    this.isActive = newRoute.params.teaId === this.tea.id;
+  get isActive(): boolean {
+    console.log(this.$route.params.teaId, this.tea.id);
+    return this.$route.params.teaId === this.tea.id;
   }
 }
 </script>

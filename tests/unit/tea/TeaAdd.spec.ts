@@ -8,7 +8,6 @@ const TEA_NAME = 'Oolong';
 const localVue = createLocalVue();
 
 const $router = { push: jest.fn() };
-$router.push.mockImplementation((parameter) => console.log('Hello World', parameter));
 
 const addTeaAction = jest.fn();
 addTeaAction.mockReturnValue({
