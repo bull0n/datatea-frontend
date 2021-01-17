@@ -14,7 +14,6 @@ import Tea from '@/data-model/tea';
 import {
   Component, Prop, Vue, Watch,
 } from 'vue-property-decorator';
-import { Route } from 'vue-router';
 
 @Component
 export default class NavTeaElement extends Vue {

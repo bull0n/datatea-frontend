@@ -6,18 +6,13 @@
 </template>
 
 <script lang="ts">
-import Tea from '@/data-model/tea';
 import NavTeaElement from '@/components/navigation/NavTeaElement.vue';
 import { Component, Vue } from 'vue-property-decorator';
-import { mapState } from 'vuex';
 import { namespace } from 'vuex-class';
 
 const teas = namespace('teas');
 
 @Component({
-  computed: {
-    ...mapState('teas', ['teas']),
-  },
   components: {
     NavTeaElement,
   },

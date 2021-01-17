@@ -3,12 +3,12 @@ import { shallowMount, Wrapper } from '@vue/test-utils';
 
 const teaId = '42';
 
-const $route = { 
+const $route = {
   name: 'tea',
   params: {
     teaId,
-  }
- };
+  },
+};
 
 describe('NavTeaElement.vue', () => {
   it('check isActive is true when id is the same', () => {
