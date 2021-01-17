@@ -110,7 +110,7 @@ export default class TeaAdd extends Vue {
         teaId: this.tea.id,
       },
     });
-    
+
     return Promise.resolve();
   }
 }

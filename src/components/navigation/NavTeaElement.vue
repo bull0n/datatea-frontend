@@ -23,7 +23,7 @@ export default class NavTeaElement extends Vue {
   public isActive = false;
 
   @Watch('$route', { immediate: true, deep: true })
-  onTeaRouteChanged(newRoute: Route) {
+  onTeaRouteChanged(newRoute: Route): void {
     this.isActive = newRoute.params.teaId === this.tea.id;
   }
 }

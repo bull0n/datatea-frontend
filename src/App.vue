@@ -20,6 +20,9 @@ import { mapState } from 'vuex';
 
 import NavListTeas from '@/components/navigation/NavListTeas.vue';
 import NavMain from '@/components/navigation/NavMain.vue';
+import { namespace } from 'vuex-class';
+
+const teas = namespace('teas');
 
 @Component({
   computed: {
@@ -31,8 +34,11 @@ import NavMain from '@/components/navigation/NavMain.vue';
   },
 })
 export default class App extends Vue {
-  async created() {
-    this.$store.dispatch('teas/fetchTeas');
+  @teas.Action
+  fetchTeas;
+
+  created(): void {
+    this.fetchTeas();
   }
 }
 </script>

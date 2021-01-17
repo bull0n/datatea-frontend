@@ -1,5 +1,3 @@
-import TeaForms from './tea-forms';
-
 export default class Tea {
   id: string;
 

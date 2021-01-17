@@ -1,5 +1,5 @@
 import { createLocalVue, mount } from '@vue/test-utils';
-import flushPromises from 'flush-promises'
+import flushPromises from 'flush-promises';
 import Vuex from 'vuex';
 import TeaAdd from '@/components/tea/TeaAdd.vue';
 
@@ -32,14 +32,14 @@ const store = new Vuex.Store({
 
 describe('TeaAdd.vue', () => {
   it('redirect when action "teas/addTea" is called', async () => {
-    const wrapper = mount(TeaAdd, { 
+    const wrapper = mount(TeaAdd, {
       localVue,
-      store, 
+      store,
       mocks: {
         $router,
-      }
+      },
     });
-    
+
     const input = wrapper.find('.tea-name');
     (input.element as HTMLInputElement).value = TEA_NAME;
     input.trigger('input');
@@ -54,5 +54,5 @@ describe('TeaAdd.vue', () => {
         teaId: TEA_ID,
       },
     });
-  })
-})
+  });
+});

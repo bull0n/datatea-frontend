@@ -14,21 +14,21 @@ const teas = {
     isLoading: false,
   } as Module1State,
   mutations: {
-    setTeas(state, newTeas: Tea[]) {
+    setTeas(state, newTeas: Tea[]): void {
       Vue.set(state, 'teas', newTeas);
     },
-    addTea(state, tea: Tea) {
+    addTea(state, tea: Tea): void {
       state.teas.push(tea);
     },
-    setIsLoading(state, isLoading: boolean) {
+    setIsLoading(state, isLoading: boolean): void {
       state.isLoading = isLoading;
     },
   },
   getters: {
-    getTeaById: (state) => (id) => state.teas.find((tea: Tea) => tea.id === id),
+    getTeaById: (state) => (id: string): Tea => state.teas.find((tea: Tea) => tea.id === id),
   },
   actions: {
-    async fetchTeas(context) {
+    async fetchTeas(context): Promise<void> {
       try {
         context.commit('setIsLoading', true);
         const response = await fetch(config.URL_ENDPOINT, {
@@ -47,7 +47,7 @@ const teas = {
         context.commit('setIsLoading', false);
       }
     },
-    async addTea(context, tea: Tea) {
+    async addTea(context, tea: Tea): Promise<Tea> {
       try {
         const response = await fetch(config.URL_ENDPOINT, {
           method: 'POST',

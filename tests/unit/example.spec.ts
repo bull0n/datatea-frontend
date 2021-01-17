@@ -9,7 +9,6 @@ const $route = {
 };
 
 it('renders props.msg when passed', () => {
-
   const wrapper = mount(NavTeaElement, {
     mocks: {
       $route,
