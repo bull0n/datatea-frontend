@@ -1,5 +1,5 @@
 import NavTeaElement from '@/components/navigation/NavTeaElement.vue';
-import { shallowMount, Wrapper } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 
 const teaId = '42';
 
