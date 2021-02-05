@@ -1,7 +1,8 @@
 import Tea from '@/data-model/tea';
 import Vue from 'vue';
 import config from '@/config';
-import { FETCH_ALL_TEA } from './graphql_queries';
+import client from '@/graphql/graphql_client';
+import { ADD_TEA, FETCH_ALL_TEAS } from '@/graphql/queries';
 
 export interface Module1State {
   teas: Tea[];
@@ -31,59 +32,16 @@ const teas = {
     async fetchTeas(context): Promise<void> {
       try {
         context.commit('setIsLoading', true);
-        const response = await fetch(config.URL_ENDPOINT, {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            query: FETCH_ALL_TEA,
-          }),
-        });
-        const objectResponse = await response.json();
-        context.commit('setTeas', objectResponse.data.teas);
+        const response = await client.request(FETCH_ALL_TEAS);
+        context.commit('setTeas', response.teas);
       } finally {
         context.commit('setIsLoading', false);
       }
     },
     async addTea(context, tea: Tea): Promise<Tea> {
       try {
-        const response = await fetch(config.URL_ENDPOINT, {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            query: `mutation createTea {
-                createTea(
-                  name: "${tea.name}",
-                  wouldBuyAgain: ${tea.wouldBuyAgain}
-                  price: ${tea.price},
-                  origin: "${tea.origin}",
-                  vendor: "${tea.vendor}",
-                  urlBought: "${tea.urlBought}",
-                  vendorDescription: "${tea.vendorDescription}",
-                  comment: "${tea.comment}",
-                ) {
-                  tea {
-                    id
-                    name,
-                    wouldBuyAgain,
-                    price,
-                    origin,
-                    vendor,
-                    urlBought,
-                    vendorDescription,
-                    comment
-                  }
-                }
-            }`,
-          }),
-        });
-        const objectResponse = await response.json();
-        const teaSaved = objectResponse.data.createTea.tea;
+        const response = await client.request(ADD_TEA, tea);
+        const teaSaved = response.createTea.tea;
         context.commit('addTea', teaSaved);
         return Promise.resolve(tea);
       } finally {
