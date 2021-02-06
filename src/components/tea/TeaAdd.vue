@@ -88,7 +88,7 @@
 </template>
 
 <script lang="ts">
-import Tea from '@/data-model/tea';
+import Tea from '@/data-model/tea/tea';
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 

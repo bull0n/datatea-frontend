@@ -1,4 +1,4 @@
-import Tea from '@/data-model/tea';
+import Tea from '@/data-model/tea/tea';
 import Vue from 'vue';
 import config from '@/config';
 import client from '@/graphql/graphql_client';

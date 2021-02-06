@@ -35,7 +35,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
-import Tea from '../../data-model/tea';
+import Tea from '@/data-model/tea/tea';
 
 const teas = namespace('teas');
 

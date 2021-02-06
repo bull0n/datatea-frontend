@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router';
 import NavListTeas from '@/components/navigation/NavListTeas.vue';
 import TeaDetail from '@/components/tea/TeaDetail.vue';
 import TeaAdd from '@/components/tea/TeaAdd.vue';
+import LoginForm from '@/components/users/LoginForm.vue';
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,10 @@ const routes: Array<RouteConfig> = [
     name: 'tea',
     component: TeaDetail,
     props: true,
+  }, {
+    path: '/login',
+    name: 'login',
+    component: LoginForm,
   },
 ];
 

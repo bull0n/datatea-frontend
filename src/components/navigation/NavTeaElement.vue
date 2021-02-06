@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import Tea from '@/data-model/tea';
+import Tea from '@/data-model/tea/tea';
 import {
   Component, Prop, Vue, Watch,
 } from 'vue-property-decorator';
