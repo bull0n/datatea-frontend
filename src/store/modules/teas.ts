@@ -1,8 +1,7 @@
 import Tea from '@/data-model/tea/tea';
 import Vue from 'vue';
-import config from '@/config';
 import client from '@/graphql/graphql_client';
-import { ADD_TEA, FETCH_ALL_TEAS } from '@/graphql/queries';
+import { ADD_TEA, FETCH_ALL_TEAS } from '@/graphql/queries/teas';
 
 export interface Module1State {
   teas: Tea[];

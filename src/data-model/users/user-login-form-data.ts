@@ -1,5 +1,5 @@
 export default class UserLoginFomData {
-  email = '';
+  username = '';
 
   password = '';
 }

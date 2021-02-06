@@ -11,7 +11,7 @@
                 type="email"
                 class="form-control"
                 placeholder="name@example.com"
-                v-model="login.email"
+                v-model="login.username"
               >
             </label>
           </div>
@@ -33,13 +33,16 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import UserLogin from '@/data-model/users/user-login-form-data';
+import client from '@/graphql/graphql_client';
+import { LOGIN } from '@/graphql/queries/users';
 
 @Component
 export default class LoginForm extends Vue {
   login: UserLogin = new UserLogin();
 
   submit(): void {
-    this.submit();
+    console.log('login');
+    client.request(LOGIN, this.login);
   }
 }
 </script>
