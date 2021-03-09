@@ -7,4 +7,9 @@ export const LOGIN = gql`mutation login($username: String!, $password: String!) 
   }
 }`;
 
-export const TEST = '';
+export const REFRESH_TOKEN = gql`mutation RefreshToken($token: String!) {
+  refreshToken(token: $token) {
+    token,
+    payload
+  }
+}`;

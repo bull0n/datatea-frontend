@@ -11,14 +11,14 @@
                 type="text"
                 class="form-control"
                 placeholder="name@example.com"
-                v-model="login.username"
+                v-model="loginParameters.username"
               >
             </label>
           </div>
           <div class="mb-3">
             <label class="form-label">
               Password
-              <input type="password" class="form-control" v-model="login.password">
+              <input type="password" class="form-control" v-model="loginParameters.password">
             </label>
           </div>
           <button type="submit" class="btn btn-primary d-block w-100">
@@ -33,44 +33,28 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import UserLogin from '@/data-model/users/user-login-form-data';
-import client from '@/graphql/graphql_client';
-import { LOGIN } from '@/graphql/queries/users';
-import LoggedinUser from '@/data-model/users/logged-in-user';
 import { namespace } from 'vuex-class';
-import Cookies from 'js-cookie';
 
 const users = namespace('users');
 const teas = namespace('teas');
 
 @Component
 export default class LoginForm extends Vue {
-  login: UserLogin = new UserLogin();
+  loginParameters: UserLogin = new UserLogin();
 
   @users.Action
-  setLoggedInUser;
+  login;
 
   @teas.Action
   fetchTeas;
 
-  submit(): void {
-    client.request(LOGIN, this.login)
-      .then((r) => this.createUserLoggedIn(r.tokenAuth))
-      .catch((e) => console.log(e));
-  }
-
-  createUserLoggedIn(r: any): void {
-    const user = new LoggedinUser();
-    user.username = r.payload.username;
-    user.token = r.token;
-
-    client.setHeader('authorization', `JWT ${user.token}`);
-    this.setLoggedInUser(user);
-    this.fetchTeas();
-    this.putTokenInCookes(user.token);
-  }
-
-  putTokenInCookes(token: string) {
-    Cookies.set('access_token', token);
+  async submit() {
+    try {
+      await this.login(this.loginParameters);
+      this.fetchTeas();
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 </script>

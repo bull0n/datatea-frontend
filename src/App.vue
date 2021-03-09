@@ -17,10 +17,10 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
-
 import NavListTeas from '@/components/navigation/NavListTeas.vue';
 import NavMain from '@/components/navigation/NavMain.vue';
 import { namespace } from 'vuex-class';
+import Cookies from 'js-cookie';
 
 const teas = namespace('teas');
 const users = namespace('users');
@@ -42,9 +42,17 @@ export default class App extends Vue {
   isUserLoggedIn;
 
   created(): void {
+    const token = Cookies.get('auth_token');
+
     if (this.isUserLoggedIn) {
       this.fetchTeas();
+    } else if (token !== undefined) {
+      this.retrieveUserFromToken(token);
     }
+  }
+
+  retrieveUserFromToken(token: any) {
+    console.log(this);
   }
 }
 </script>
