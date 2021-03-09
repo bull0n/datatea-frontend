@@ -8,7 +8,7 @@
             <label class="form-label">
               Email address
               <input
-                type="email"
+                type="text"
                 class="form-control"
                 placeholder="name@example.com"
                 v-model="login.username"
@@ -35,14 +35,42 @@ import { Component, Vue } from 'vue-property-decorator';
 import UserLogin from '@/data-model/users/user-login-form-data';
 import client from '@/graphql/graphql_client';
 import { LOGIN } from '@/graphql/queries/users';
+import LoggedinUser from '@/data-model/users/logged-in-user';
+import { namespace } from 'vuex-class';
+import Cookies from 'js-cookie';
+
+const users = namespace('users');
+const teas = namespace('teas');
 
 @Component
 export default class LoginForm extends Vue {
   login: UserLogin = new UserLogin();
 
+  @users.Action
+  setLoggedInUser;
+
+  @teas.Action
+  fetchTeas;
+
   submit(): void {
-    console.log('login');
-    client.request(LOGIN, this.login);
+    client.request(LOGIN, this.login)
+      .then((r) => this.createUserLoggedIn(r.tokenAuth))
+      .catch((e) => console.log(e));
+  }
+
+  createUserLoggedIn(r: any): void {
+    const user = new LoggedinUser();
+    user.username = r.payload.username;
+    user.token = r.token;
+
+    client.setHeader('authorization', `JWT ${user.token}`);
+    this.setLoggedInUser(user);
+    this.fetchTeas();
+    this.putTokenInCookes(user.token);
+  }
+
+  putTokenInCookes(token: string) {
+    Cookies.set('access_token', token);
   }
 }
 </script>

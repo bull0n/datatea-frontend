@@ -3,7 +3,7 @@
     <nav-main></nav-main>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-3" v-if="isUserLoggedIn">
           <nav-list-teas></nav-list-teas>
         </div>
         <div class="col-sm">
@@ -23,6 +23,7 @@ import NavMain from '@/components/navigation/NavMain.vue';
 import { namespace } from 'vuex-class';
 
 const teas = namespace('teas');
+const users = namespace('users');
 
 @Component({
   computed: {
@@ -37,8 +38,13 @@ export default class App extends Vue {
   @teas.Action
   fetchTeas;
 
+  @users.Getter
+  isUserLoggedIn;
+
   created(): void {
-    this.fetchTeas();
+    if (this.isUserLoggedIn) {
+      this.fetchTeas();
+    }
   }
 }
 </script>
