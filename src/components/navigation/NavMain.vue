@@ -18,7 +18,21 @@
             <router-link :to="{ name: 'teaAdd' }" class="navbar-brand">Add a new tea</router-link>
           </li>
           <li class="nav-item">
-            <router-link :to="{ name: 'login' }" class="navbar-brand">Login</router-link>
+            <router-link
+              :to="{ name: 'login' }"
+              class="navbar-brand"
+              v-if="!isUserLoggedIn"
+            >
+              Login
+            </router-link>
+
+            <a class="navbar-brand"
+              href="#"
+              v-on:click.prevent="onLogout()"
+              v-else
+            >
+              Logout
+            </a>
           </li>
         </ul>
       </div>
@@ -28,9 +42,22 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+
+const users = namespace('users');
 
 @Component
 export default class NavMain extends Vue {
+  @users.Getter
+  isUserLoggedIn;
+
+  @users.Action
+  logout;
+
+  onLogout(): void {
+    this.logout();
+    window.location.reload();
+  }
 }
 </script>
 

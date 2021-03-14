@@ -41,18 +41,22 @@ export default class App extends Vue {
   @users.Getter
   isUserLoggedIn;
 
-  created(): void {
+  @users.Action
+  retrieveUserFromToken;
+
+  async created() {
     const token = Cookies.get('auth_token');
 
     if (this.isUserLoggedIn) {
       this.fetchTeas();
     } else if (token !== undefined) {
-      this.retrieveUserFromToken(token);
+      await this.getUserFromToken(token);
+      this.fetchTeas();
     }
   }
 
-  retrieveUserFromToken(token: any) {
-    console.log(this);
+  async getUserFromToken(token: any) {
+    await this.retrieveUserFromToken(token);
   }
 }
 </script>
