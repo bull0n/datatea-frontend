@@ -4,6 +4,7 @@ import NavListTeas from '@/components/navigation/NavListTeas.vue';
 import TeaDetail from '@/components/tea/TeaDetail.vue';
 import TeaAdd from '@/components/tea/TeaAdd.vue';
 import LoginForm from '@/components/users/LoginForm.vue';
+import store from '@/store/index';
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,15 @@ const routes: Array<RouteConfig> = [
 
 const router = new VueRouter({
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = store.getters['users/isUserLoggedIn'];
+  if (to.name !== 'login' && !isAuthenticated) {
+    next({ name: 'login' });
+  } else {
+    next();
+  }
 });
 
 export default router;

@@ -46,7 +46,7 @@ export default class App extends Vue {
 
   async created() {
     const token = Cookies.get('auth_token');
-    
+
     if (this.isUserLoggedIn) {
       this.fetchTeas();
     } else if (token !== undefined) {
