@@ -1,0 +1,13 @@
+const express = require('express');
+const app = express();
+
+// use the express-static middleware
+app.use(express.static('dist'));
+
+// define the first route
+app.get('/', function (req, res) {
+  res.send('<h1>Hello World!</h1>');
+});
+
+// start the server listening for requests
+app.listen(process.env.PORT || 8080, () => console.log('Server is running...'));
