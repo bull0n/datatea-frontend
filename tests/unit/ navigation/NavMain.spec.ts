@@ -28,7 +28,7 @@ describe('NavMain.vue', () => {
   beforeAll(() => {
     const reloadSpy = jest.fn();
     Object.defineProperty(window, 'location', {
-        value: { reload: reloadSpy },
+      value: { reload: reloadSpy },
     });
   });
 
@@ -36,7 +36,7 @@ describe('NavMain.vue', () => {
     isUserLoggedIn.mockReturnValue(true);
     const wrapper = shallowMount(NavMain, {
       localVue,
-      store: store
+      store,
     });
 
     wrapper.find('a[href="#"]').trigger('click');

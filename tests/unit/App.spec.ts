@@ -50,7 +50,7 @@ describe('App.vue', () => {
       localVue,
       store: new Vuex.Store(store),
     });
-    
+
     expect(wrapper.findComponent(NavListTeas).exists()).toBe(false);
   });
 });
