@@ -7,6 +7,10 @@ export default class Tea {
 
   price = 0.0;
 
+  category = '';
+
+  categoryLabel = '';
+
   pickingSeason = '';
 
   origin = '';

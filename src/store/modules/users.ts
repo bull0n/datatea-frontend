@@ -18,7 +18,7 @@ const users = {
 
       client.setHeader('authorization', `JWT ${user.token}`);
       Vue.set(state, 'loggedInUser', user);
-      Cookies.set('auth_token', state.loggedInUser.token);
+      Cookies.set('auth_token', state.loggedInUser.token, { secure: true, sameSite: 'strict' });
     },
     removeUser(state): void {
       Vue.set(state, 'loggedInUser', null);

@@ -3,7 +3,10 @@
     <div class="card-body" v-if="tea !== undefined">
       <h1 class="display-4">
         {{ tea.name }}
-        <small class="fs-5 text-muted">{{ tea.price }} $/g</small>
+        <small class="fs-5 text-muted">
+          {{ tea.categoryLabel }}
+          <template v-if="tea.price !== null">{{ tea.price }} $/g</template>
+        </small>
       </h1>
       <dl class="row">
         <dt class="col-sm-3">Vendor</dt>

@@ -29,6 +29,21 @@
 
       <div>
         <label class="form-label">
+          Category:
+          <select class="form-select" v-model="tea.category" required>
+            <option selected="selected">Select a category...</option>
+            <option value="WHITE">White</option>
+            <option value="GREEN">Green</option>
+            <option value="YELLOW">Yellow</option>
+            <option value="OOLONG">Oolong</option>
+            <option value="BLACK">Black</option>
+            <option value="FERMENTED">Fermented</option>
+          </select>
+        </label>
+      </div>
+
+      <div>
+        <label class="form-label">
           Vendor description:
           <textarea
             class="form-control"

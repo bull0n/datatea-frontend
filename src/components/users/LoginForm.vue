@@ -45,8 +45,17 @@ export default class LoginForm extends Vue {
   @users.Action
   login;
 
+  @users.Getter
+  isUserLoggedIn;
+
   @teas.Action
   fetchTeas;
+
+  mounted() {
+    if (this.isUserLoggedIn) {
+      this.$router.push({ name: 'home' });
+    }
+  }
 
   async submit() {
     try {

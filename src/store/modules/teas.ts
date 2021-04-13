@@ -39,9 +39,8 @@ const teas = {
     },
     async addTea(context, tea: Tea): Promise<Tea> {
       try {
-        const response = await client.request(ADD_TEA, tea);
-        const teaSaved = response.createTea.tea;
-        context.commit('addTea', teaSaved);
+        await client.request(ADD_TEA, tea);
+        context.dispatch('fetchTeas');
         return Promise.resolve(tea);
       } finally {
         context.commit('setIsLoading', false);
