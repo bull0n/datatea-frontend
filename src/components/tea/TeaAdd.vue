@@ -146,7 +146,7 @@ export default class TeaAdd extends Vue {
   margin-bottom: auto;
 
   label {
-    padding-left: 1rem; 
+    padding-left: 1rem;
     input {
       margin-left: 0;
     }
