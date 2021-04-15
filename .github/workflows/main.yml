@@ -38,6 +38,10 @@ jobs:
       - name: E2E tests
         run: echo 'WIP'
       
-      - name: Deployment
-        run: echo 'No deployment sorry :)'
+      - uses: akhileshns/heroku-deploy@v3.12.12 
+        name: Deployment
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "datatea"
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
         
