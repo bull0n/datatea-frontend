@@ -1,5 +1,5 @@
 <template>
-  <div id="app" v-if="!isLoading">
+  <div id="app">
     <nav-main></nav-main>
     <div class="container-fluid">
       <div class="row">
@@ -22,8 +22,9 @@ import NavMain from '@/components/navigation/NavMain.vue';
 import { namespace } from 'vuex-class';
 import Cookies from 'js-cookie';
 
-const teas = namespace('teas');
 const users = namespace('users');
+
+const teas = namespace('teas');
 
 @Component({
   computed: {
@@ -35,23 +36,19 @@ const users = namespace('users');
   },
 })
 export default class App extends Vue {
-  @teas.Action
-  fetchTeas;
-
   @users.Getter
   isUserLoggedIn;
 
   @users.Action
   retrieveUserFromToken;
 
-  async created() {
-    const token = Cookies.get('auth_token');
+  @teas.Action
+  fetchTeasByStatus;
 
-    if (this.isUserLoggedIn) {
-      this.fetchTeas();
-    } else if (token !== undefined) {
+  async mounted() {
+    const token = Cookies.get('auth_token');
+    if (token !== undefined && !this.isUserLoggedIn) {
       await this.getUserFromToken(token);
-      this.fetchTeas();
     }
   }
 
@@ -72,5 +69,9 @@ export default class App extends Vue {
 
 label {
   display: initial;
+}
+
+.row {
+  margin-bottom: 1rem;
 }
 </style>

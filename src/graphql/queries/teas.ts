@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 
-export const FETCH_ALL_TEAS = gql`query teas {
-  teas {
+export const FETCH_ALL_TEAS = gql`query teas($status: Status) {
+  teas(status: $status) {
     id
     name
     category

@@ -106,7 +106,9 @@
         </div>
       </div>
 
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <div class="text-end">
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
     </form>
   </div>
 </template>

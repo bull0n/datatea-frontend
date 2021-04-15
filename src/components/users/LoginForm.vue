@@ -60,7 +60,6 @@ export default class LoginForm extends Vue {
   async submit() {
     try {
       await this.login(this.loginParameters);
-      this.fetchTeas();
     } catch (e) {
       console.log(e);
     }

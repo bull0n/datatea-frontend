@@ -1,6 +1,6 @@
 <template>
   <ul class="nav nav-pills flex-column list-teas">
-    <nav-tea-element v-for="tea in teas" :key="tea.id" :tea="tea">
+    <nav-tea-element v-for="tea in teasByStatus.available" :key="tea.id" :tea="tea">
     </nav-tea-element>
   </ul>
 </template>
@@ -19,7 +19,14 @@ const teas = namespace('teas');
 })
 export default class NavListTeas extends Vue {
   @teas.State
-  teas;
+  teasByStatus;
+
+  @teas.Action
+  fetchTeasByStatus;
+
+  mounted() {
+    this.fetchTeasByStatus('AVAILABLE');
+  }
 }
 </script>
 
