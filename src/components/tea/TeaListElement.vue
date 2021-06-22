@@ -16,6 +16,10 @@
       </p>
 
       <div class="text-end">
+        <router-link :to="{ name: 'tea', params: { teaId: tea.id }}" class="btn btn-primary me-1"
+        >
+          🔍
+        </router-link>
         <tea-actions :tea="tea"></tea-actions>
       </div>
     </div>
@@ -30,6 +34,7 @@ import { namespace } from 'vuex-class';
 import Tea from '@/data-model/tea/tea';
 import TeaCategoryColorLabel from '@/components/navigation/TeaCategoryColorLabel.vue';
 import TeaActions from '@/components/tea/TeaActions.vue';
+import Status from '@/data-model/tea/status';
 
 const teas = namespace('teas');
 
@@ -42,7 +47,7 @@ const teas = namespace('teas');
 export default class TeaListElement extends Vue {
   @Prop() readonly tea: Tea;
 
-  @Prop() readonly status: string;
+  @Prop() readonly status: Status;
 
   @teas.State
   teasByStatus;

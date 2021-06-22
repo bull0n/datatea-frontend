@@ -17,14 +17,31 @@ export const FETCH_ALL_TEAS = gql`query teas($status: Status) {
   }
 }`;
 
+export const FETCH_ONE_TEA = gql`query tea($id: Int) {
+  tea(id: $id) {
+    id
+    name
+    category
+    categoryLabel
+    wouldBuyAgain
+    price
+    origin
+    vendor
+    urlBought
+    vendorDescription
+    comment
+    status
+  }
+}`;
+
 export const ADD_TEA = gql`mutation createTea(
     $name: String!
     $wouldBuyAgain: Boolean!
     $price: Float!
     $origin: String!
-    $vendor: String!,
+    $vendor: String!
     $urlBought: String!
-    $vendorDescription: String!,
+    $vendorDescription: String!
     $comment: String!
     $category: Category!
   ) {
@@ -54,7 +71,7 @@ export const ADD_TEA = gql`mutation createTea(
 }`;
 
 export const UPDATE_TEA_STATUS = gql`mutation updateTeaStatus(
-  $id: Integer!
+  $id: Int!
   $status: Status!
 ){
   updateTeaStatus(id: $id,

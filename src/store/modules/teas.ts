@@ -1,7 +1,11 @@
 import Tea from '@/data-model/tea/tea';
 import Vue from 'vue';
 import client from '@/graphql/graphql_client';
-import { ADD_TEA, FETCH_ALL_TEAS, UPDATE_TEA_STATUS } from '@/graphql/queries/teas';
+import { $enum } from 'ts-enum-util';
+import {
+  ADD_TEA, FETCH_ALL_TEAS, FETCH_ONE_TEA, UPDATE_TEA_STATUS,
+} from '@/graphql/queries/teas';
+import Status from '@/data-model/tea/status';
 
 export interface ModuleTeaState {
   teasByStatus: {
@@ -49,14 +53,20 @@ const teas = {
       const response = await client.request(FETCH_ALL_TEAS);
       context.commit('setAllTeas', response.teas);
     },
+    async fetchTea(context, teaId: any): Promise<Tea> {
+      console.log('teaId', teaId);
+      const response = await client.request(FETCH_ONE_TEA, { id: parseInt(teaId, 10) });
+      console.log('tea: ', response.tea);
+      return response.tea;
+    },
     async addTea(context, tea: Tea): Promise<Tea> {
       await client.request(ADD_TEA, tea);
-      context.dispatch('fetchTeasByStatus', 'available');
+      context.dispatch('fetchTeasByStatus', $enum(Status).getKeyOrThrow(Status.AVAILABLE));
       return Promise.resolve(tea);
     },
-    async updateTeaStatus(context, tea: Tea, newStatus: string): Promise<void> {
-      await client.request(UPDATE_TEA_STATUS, { id: tea.id, status: newStatus });
-      await context.dispatch('fetchTeasByStatus', 'available');
+    async updateTeaStatus(context, { tea, newStatus }): Promise<void> {
+      await client.request(UPDATE_TEA_STATUS, { id: parseInt(tea.id, 10), status: newStatus });
+      await context.dispatch('fetchTeasByStatus', $enum(Status).getKeyOrThrow(Status.AVAILABLE));
       await context.dispatch('fetchAllTeas');
     },
   },

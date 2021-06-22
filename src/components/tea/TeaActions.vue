@@ -4,7 +4,7 @@
       v-if="tea.status !== 'F' && tea.status !== undefined"
       type="button"
       class="btn btn-success"
-      v-on:click="updateTeaStatus()"
+      v-on:click="onUpdateTeaStatusClicked()"
     >
       {{ getIconForFutureStatus() }}
     </button>
@@ -17,6 +17,8 @@ import {
 } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 import Tea from '@/data-model/tea/tea';
+import Status from '@/data-model/tea/status';
+import { $enum } from 'ts-enum-util';
 
 const teas = namespace('teas');
 
@@ -27,15 +29,30 @@ export default class TeaActions extends Vue {
   @teas.State
   teasByStatus;
 
-  updateTeaStatus(): void {
-    console.log(this);
+  @teas.Action
+  updateTeaStatus;
+
+  onUpdateTeaStatusClicked(): void {
+    let newStatus: Status;
+    switch (this.tea.status) {
+      case Status.ORDERED:
+        newStatus = Status.AVAILABLE;
+        break;
+      case Status.AVAILABLE:
+        newStatus = Status.FINISHED;
+        break;
+      default:
+        newStatus = Status.ORDERED;
+        break;
+    }
+    this.updateTeaStatus({ tea: this.tea, newStatus: $enum(Status).getKeyOrThrow(newStatus) });
   }
 
   getIconForFutureStatus(): string {
     switch (this.tea.status) {
-      case 'O':
+      case Status.ORDERED:
         return '🚚';
-      case 'A':
+      case Status.AVAILABLE:
         return '🏁';
       default:
         return 'error';

@@ -36,7 +36,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import {
+  Component, Vue, Prop, Watch,
+} from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 import Tea from '@/data-model/tea/tea';
 
@@ -46,11 +48,18 @@ const teas = namespace('teas');
 export default class TeaDetail extends Vue {
   @Prop({ required: true }) readonly teaId: number;
 
-  @teas.Getter
-  getTeaById;
+  tea = new Tea();
 
-  get tea(): Tea {
-    return this.getTeaById(this.teaId);
+  @teas.Action
+  fetchTea;
+
+  mounted() {
+    this.onTeaIdChanged();
+  }
+
+  @Watch('teaId')
+  async onTeaIdChanged(): Promise<void> {
+    this.tea = await this.fetchTea(this.teaId);
   }
 }
 </script>
