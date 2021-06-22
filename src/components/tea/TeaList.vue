@@ -1,10 +1,11 @@
 <template>
-  <div class="card">
-    <ul>
-      <li v-for="tea in teas" :key="tea.id">
-        {{ tea.name }}
-      </li>
-    </ul>
+  <div class="teas-container">
+    <tea-list-element
+      v-for="tea in teas"
+      :key="tea.id"
+      :tea="tea"
+      :status="status"
+    ></tea-list-element>
   </div>
 </template>
 
@@ -14,10 +15,15 @@ import {
 } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 import Tea from '@/data-model/tea/tea';
+import TeaListElement from '@/components/tea/TeaListElement.vue';
 
 const teas = namespace('teas');
 
-@Component
+@Component({
+  components: {
+    TeaListElement,
+  },
+})
 export default class TeaList extends Vue {
   @Prop() readonly status: string;
 
@@ -33,12 +39,12 @@ export default class TeaList extends Vue {
   @teas.Action
   fetchAllTeas;
 
-  mounted() {
+  mounted(): void {
     this.fetchTeas();
   }
 
   @Watch('status')
-  onPropertyChanged() {
+  onPropertyChanged(): void {
     this.fetchTeas();
   }
 
@@ -61,5 +67,10 @@ export default class TeaList extends Vue {
 </script>
 
 <style scoped lang="scss">
-
+.teas-container {
+  display: grid;
+  grid-template-columns: 24% 24% 24% 24%;
+  grid-gap: 20px;
+  padding-right: 50px;
+}
 </style>

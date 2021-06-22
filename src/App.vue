@@ -45,7 +45,7 @@ export default class App extends Vue {
   @teas.Action
   fetchTeasByStatus;
 
-  async mounted() {
+  async created() {
     const token = Cookies.get('auth_token');
     if (token !== undefined && !this.isUserLoggedIn) {
       await this.getUserFromToken(token);

@@ -27,6 +27,12 @@
             >Teas on their way</router-link>
           </li>
           <li class="nav-item" v-if="isUserLoggedIn">
+            <router-link
+              :to="{ name: 'listTeas', params: { status: 'finished' }}"
+              class="navbar-brand"
+            >Archive</router-link>
+          </li>
+          <li class="nav-item" v-if="isUserLoggedIn">
             <router-link :to="{ name: 'listAllTeas' }" class="navbar-brand">All teas</router-link>
           </li>
           <li class="nav-item" v-if="isUserLoggedIn">

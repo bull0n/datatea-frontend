@@ -1,7 +1,7 @@
 import Tea from '@/data-model/tea/tea';
 import Vue from 'vue';
 import client from '@/graphql/graphql_client';
-import { ADD_TEA, FETCH_ALL_TEAS } from '@/graphql/queries/teas';
+import { ADD_TEA, FETCH_ALL_TEAS, UPDATE_TEA_STATUS } from '@/graphql/queries/teas';
 
 export interface ModuleTeaState {
   teasByStatus: {
@@ -51,8 +51,13 @@ const teas = {
     },
     async addTea(context, tea: Tea): Promise<Tea> {
       await client.request(ADD_TEA, tea);
-      context.dispatch('fetchTeas');
+      context.dispatch('fetchTeasByStatus', 'available');
       return Promise.resolve(tea);
+    },
+    async updateTeaStatus(context, tea: Tea, newStatus: string): Promise<void> {
+      await client.request(UPDATE_TEA_STATUS, { id: tea.id, status: newStatus });
+      await context.dispatch('fetchTeasByStatus', 'available');
+      await context.dispatch('fetchAllTeas');
     },
   },
 };

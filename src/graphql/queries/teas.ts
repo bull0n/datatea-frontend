@@ -13,19 +13,20 @@ export const FETCH_ALL_TEAS = gql`query teas($status: Status) {
     urlBought
     vendorDescription
     comment
+    status
   }
 }`;
 
 export const ADD_TEA = gql`mutation createTea(
-    $name: String!, 
-    $wouldBuyAgain: Boolean!,
-    $price: Float!, 
+    $name: String!
+    $wouldBuyAgain: Boolean!
+    $price: Float!
     $origin: String!
-    $vendor: String!, 
+    $vendor: String!,
     $urlBought: String!
-    $vendorDescription: String!, 
+    $vendorDescription: String!,
     $comment: String!
-    $category: Category!,
+    $category: Category!
   ) {
   createTea(
     name: $name,
@@ -49,5 +50,16 @@ export const ADD_TEA = gql`mutation createTea(
       vendorDescription
       comment
     }
+  }
+}`;
+
+export const UPDATE_TEA_STATUS = gql`mutation updateTeaStatus(
+  $id: Integer!
+  $status: Status!
+){
+  updateTeaStatus(id: $id,
+    status: $status,
+  ) {
+      ok
   }
 }`;
